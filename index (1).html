@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S.O.S Solar · Estación solar de emergencia</title>
+<meta name="description" content="Estación solar institucional que carga dispositivos cuando falla la red eléctrica. Proyecto educativo de Bogotá, Colombia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#inicio">S.O.S Solar</a>
+  <nav aria-label="Principal">
+    <a href="#simulador">Un día de sol</a>
+    <a href="#sistema">El sistema</a>
+    <a href="#calculadora">Calculadora</a>
+    <a href="#juega">Juega</a>
+    <a href="#glosario">Glosario</a>
+    <a href="#equipo">Equipo</a>
+  </nav>
+</header>
+
+<main>
+<section id="inicio" class="hero" aria-labelledby="titulo">
+  <div class="sky" id="sky" aria-hidden="true">
+    <div class="sun" id="sun"></div>
+    <div class="hill"></div>
+    <div class="panel-ico"></div>
+  </div>
+  <div class="hero-body">
+    <h1 id="titulo">Cuando falla la luz, el sol sigue ahí.</h1>
+    <p>S.O.S Solar es una estación del colegio que capta energía del sol, la guarda en baterías y carga celulares, tabletas y portátiles durante cortes y emergencias.</p>
+
+    <div class="sim" id="simulador">
+      <label for="hora">Mueve el sol: <strong id="horaTxt">12:00</strong></label>
+      <input type="range" id="hora" min="5" max="19" step="0.25" value="12">
+      <dl class="readout">
+        <div><dt>Potencia del panel</dt><dd id="outP">0 W</dd></div>
+        <div><dt>Energía captada hoy</dt><dd id="outE">0 Wh</dd></div>
+        <div><dt>Estado</dt><dd id="outS">Esperando el sol</dd></div>
+      </dl>
+      <p class="note">Simulación ilustrativa con un panel de 200 W y 4 horas sol pico. Los valores reales dependen del clima.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="h-quien">
+  <h2 id="h-quien">Para quién y para qué</h2>
+  <div class="cols">
+    <p>La institución no tenía una fuente de respaldo ni una alternativa sostenible para emergencias. La estación sirve a estudiantes, docentes, personal administrativo y de logística.</p>
+    <ul class="ticks">
+      <li>Funciona con energía renovable.</li>
+      <li>Es autónoma: capta, regula, almacena y entrega.</li>
+      <li>Está pensada para el clima y los componentes disponibles en Bogotá.</li>
+      <li>Entrega onda senoidal pura para no dañar equipos sensibles.</li>
+    </ul>
+  </div>
+  <ul class="wins" aria-label="Logros">
+    <li>Prototipo funcional construido</li>
+    <li>Pruebas de carga exitosas en distintas baterías</li>
+    <li>Esquemático y PCB del inversor diseñados</li>
+    <li>Sistema completo en marcha</li>
+  </ul>
+</section>
+
+<section id="sistema" class="wrap alt" aria-labelledby="h-sis">
+  <h2 id="h-sis">Cómo viaja la energía</h2>
+  <p class="lead">Toca cada etapa para ver qué hace.</p>
+
+  <div class="audience" role="group" aria-label="Nivel de detalle">
+    <button class="seg on" data-aud="gen" aria-pressed="true">Explícamelo fácil</button>
+    <button class="seg" data-aud="tec" aria-pressed="false">Detalle técnico</button>
+  </div>
+
+  <ol class="flow" id="flow">
+    <li><button data-i="0" class="on">☀️ Panel solar</button></li>
+    <li><button data-i="1">🎛️ Controlador</button></li>
+    <li><button data-i="2">🔋 Batería</button></li>
+    <li><button data-i="3">🔄 Inversor SPWM</button></li>
+    <li><button data-i="4">📱 Tus dispositivos</button></li>
+  </ol>
+  <article class="detail" id="detail" aria-live="polite">
+    <h3 id="dT"></h3>
+    <p id="dP"></p>
+  </article>
+
+  <div class="challenge">
+    <h3>El reto: no había baterías LiFePO4</h3>
+    <p>Escaseaban en el mercado local. Usamos un banco VRLA/AGM y lo cuidamos con ingeniería de control: limitamos la profundidad de descarga y ajustamos con precisión los umbrales de carga. Resultado: buena eficiencia con piezas disponibles y sin comprometer la seguridad.</p>
+  </div>
+
+  <h3>Validamos lo que construimos</h3>
+  <table class="tbl">
+    <thead><tr><th>Medimos</th><th>Para qué</th></tr></thead>
+    <tbody>
+      <tr><td>Tensión panel → controlador</td><td>Confirmar que la captación entrega lo esperado</td></tr>
+      <tr><td>Etapas de carga hacia la batería</td><td>Proteger la batería y alargar su vida útil</td></tr>
+      <tr><td>Forma de onda con osciloscopio</td><td>Asegurar onda senoidal pura</td></tr>
+      <tr><td>Dispositivos reales conectados</td><td>Comprobar el uso cotidiano</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="calculadora" class="wrap" aria-labelledby="h-calc">
+  <h2 id="h-calc">Calcula cuánto aguanta</h2>
+  <p class="lead">Cambia los datos y mira la autonomía con el sol de Bogotá. Los valores iniciales son de ejemplo: reemplázalos con los del prototipo.</p>
+  <form class="calc" id="calc" onsubmit="return false">
+    <label>Panel (W)<input type="number" id="cP" value="200" min="10"></label>
+    <label>Horas sol pico al día<input type="number" id="cH" value="4" min="1" max="7" step="0.1"></label>
+    <label>Rendimiento del sistema (%)<input type="number" id="cPR" value="70" min="40" max="95"></label>
+    <label>Batería (V)<input type="number" id="cV" value="12" min="6"></label>
+    <label>Batería (Ah)<input type="number" id="cAh" value="100" min="1"></label>
+    <label>Descarga máxima (%)<input type="number" id="cD" value="50" min="10" max="100"></label>
+    <label>Eficiencia del inversor (%)<input type="number" id="cE" value="85" min="50" max="99"></label>
+    <label>Consumo conectado (W)<input type="number" id="cL" value="50" min="1"></label>
+  </form>
+  <div class="results" aria-live="polite">
+    <div><span id="rGen">–</span><small>Energía generada por día</small></div>
+    <div><span id="rUtil">–</span><small>Energía útil almacenada</small></div>
+    <div><span id="rAut">–</span><small>Autonomía</small></div>
+    <div><span id="rRec">–</span><small>Días de sol para recargar</small></div>
+  </div>
+  <p class="note" id="rTxt"></p>
+</section>
+
+<section id="juega" class="wrap" aria-labelledby="h-juega">
+  <h2 id="h-juega">Juega y aprende</h2>
+
+  <h3>🔌 ¿Qué conectarías en una emergencia?</h3>
+  <p class="lead">Toca los aparatos que quieres cargar y mira cuánto aguanta la batería. Usa los datos de la calculadora.</p>
+  <div class="chips" id="chips">
+    <button data-w="10" aria-pressed="false">📱 Celular <small>10 W</small></button>
+    <button data-w="15" aria-pressed="false">📟 Tableta <small>15 W</small></button>
+    <button data-w="60" aria-pressed="false">💻 Portátil <small>60 W</small></button>
+    <button data-w="10" aria-pressed="false">💡 Lámpara LED <small>10 W</small></button>
+    <button data-w="30" aria-pressed="false">🌀 Ventilador <small>30 W</small></button>
+  </div>
+  <div class="meter" role="img" aria-label="Nivel de autonomía"><div id="bar"></div></div>
+  <p class="big" id="gTxt" aria-live="polite">Elige al menos un aparato.</p>
+
+  <h3 class="sp">🧠 Pon a prueba lo que aprendiste</h3>
+  <div class="quiz" id="quiz" aria-live="polite"></div>
+</section>
+
+<section id="glosario" class="wrap alt" aria-labelledby="h-glo">
+  <h2 id="h-glo">Glosario para empezar</h2>
+  <div class="search"><label for="q" class="sr">Buscar término</label><input type="search" id="q" placeholder="Busca: batería, AC, inversor…"></div>
+  <div id="glos">
+    <details data-k="batería"><summary>Batería</summary><p>Un tanque de energía eléctrica. Guarda lo que producen los paneles de día para usarlo de noche o en un corte. Usamos baterías VRLA/AGM: plomo-ácido selladas, sin líquido que rellenar.</p></details>
+    <details data-k="ac dc corriente"><summary>AC y DC</summary><p>DC fluye siempre en un sentido (paneles, baterías, USB). AC cambia de sentido muchas veces por segundo (el tomacorriente de la pared). El inversor convierte de DC a AC.</p></details>
+    <details data-k="controlador carga"><summary>Controlador de carga</summary><p>El guardián de la batería. Reparte la energía del panel por etapas para no sobrecargarla y que dure más años.</p></details>
+    <details data-k="inversor senoidal spwm onda"><summary>Inversor de onda senoidal pura</summary><p>Convierte la energía de la batería en una onda suave y limpia, igual a la de la red. Protege portátiles y cargadores delicados.</p></details>
+    <details data-k="autosuficiencia autonomía"><summary>Autosuficiencia</summary><p>Producir y guardar la energía que necesitas sin depender de la red eléctrica.</p></details>
+  </div>
+  <p id="noRes" class="note" hidden>No encontramos ese término. Prueba con otra palabra.</p>
+</section>
+
+<section id="equipo" class="wrap" aria-labelledby="h-eq">
+  <h2 id="h-eq">Quiénes lo hicimos</h2>
+  <ul class="team">
+    <li>Juan David Castañeda</li>
+    <li>Juan Arias</li>
+    <li>Juan José Torres</li>
+  </ul>
+  <p>Estudiantes de Bogotá, Colombia. Proyecto institucional y educativo.</p>
+</section>
+</main>
+
+<footer>
+  <p>S.O.S Solar · Bogotá, Colombia</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
